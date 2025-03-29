@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagem Interativa</title>
+    <style>
+        /* Estilo geral da página */
+        body {
+            background-color: black;  /* Fundo preto */
+            color: white;  /* Texto branco */
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;  /* Centraliza horizontalmente */
+            align-items: center;  /* Centraliza verticalmente */
+            height: 100vh;  /* Preenche a altura total da janela */
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Detalhes das listras roxas nos cantos */
+        body::before, body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 10%;
+            height: 10%;
+            background: linear-gradient(45deg, rgba(128, 0, 128, 0.8), rgba(75, 0, 130, 0.8));
+        }
+
+        body::before {
+            left: 0;
+            border-radius: 0 50% 0 0;
+        }
+
+        body::after {
+            right: 0;
+            border-radius: 0 0 50% 0;
+        }
+
+        /* Caixa central com o texto */
+        .container {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 400px;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #888;
+            color: #333;
+            box-sizing: border-box;  /* Garante que o padding não afete o tamanho */
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Estilo para a mensagem com a bandeira LGBT */
+        .bandeira {
+            display: none;
+            position: absolute;
+            top: 20%;
+            width: 100%;
+            font-size: 40px;
+            color: white;
+            animation: moveFlag 5s linear infinite;
+            text-align: center;
+        }
+
+        @keyframes moveFlag {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Mensagem grande e colorida */
+        .flag-text {
+            font-size: 50px;
+            font-weight: bold;
+            background: linear-gradient(45deg, violet, indigo, blue, green, yellow, orange, red);
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: fadeInOut 3s infinite;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Digite seu apelido carinhoso</h1>
+        <input type="text" id="apelido" placeholder="Digite seu apelido" />
+        <button id="enviar" onclick="mostrarMensagem()">Enviar</button>
+        <div class="result" id="resultado"></div>
+    </div>
+
+    <!-- Bandeira LGBT -->
+    <div class="bandeira" id="bandeira">
+        <span class="flag-text">Levindo Lopes 303 dia 19 de abril</span>
+    </div>
+
+    <script>
+        let erroCount = 0;
+
+        function mostrarMensagem() {
+            var apelido = document.getElementById("apelido").value.trim().toLowerCase();
+            var resultado = document.getElementById("resultado");
+            var bandeira = document.getElementById("bandeira");
+
+            // Alerta para verificar o que está sendo capturado
+            alert("Você digitou: " + apelido);
+
+            // Verifica a resposta correta
+            if (apelido === "senhora i") {
+                resultado.innerText = ""; // Limpa qualquer mensagem anterior
+                bandeira.style.display = "block"; // Exibe a bandeira LGBT
+            } else {
+                erroCount++;  // Incrementa o contador de erros
+
+                // Mensagens com base no número de erros
+                if (erroCount === 1) {
+                    resultado.innerText = "Te falta maestria.";
+                } else if (erroCount === 2) {
+                    resultado.innerText = "Não consegue né Moisés.";
+                } else if (erroCount === 3) {
+                    resultado.innerText = "Eu não acredito que a senhora tá errando isso!";
+                } else {
+                    resultado.innerText = "Você já errou mais de 3 vezes. Tente novamente!";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
